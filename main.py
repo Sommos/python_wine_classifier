@@ -40,3 +40,19 @@ x = sc.fit_transform(x)
 
 # training set contains 80% of data, testing set contains 20% of data, random_state = 42 ensures that the same data is used for each run
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.2, random_state = 42)
+
+# knn classifier with 3 neighbors
+n3 = KNeighborsClassifier(n_neighbors = 3)
+n3.fit(x_train, y_train)
+pred_n3 = n3.predict(x_test)
+print(classification_report(y_test, pred_n3))
+cross_val = cross_val_score(estimator = n3, X = x_train, y = y_train, cv = 10)
+print(cross_val.mean())
+
+# knn classifier with 5 neighbors
+n5 = KNeighborsClassifier(n_neighbors = 5)
+n5.fit(x_train, y_train)
+pred_n5 = n5.predict(x_test)
+print(classification_report(y_test, pred_n5))
+cross_val = cross_val_score(estimator = n5, X = x_train, y = y_train, cv = 10)
+print(cross_val.mean())
