@@ -23,7 +23,6 @@ for label in df.columns[:-1]:
     # save image of figure to imgs folder
     plt.savefig("figs/" + "white".join(label.split(" ")))
 
-
 # split data into training and testing sets
 bins = [0, 5.5, 7.5, 10]
 # 0 = bad, 1 = average, 2 = good
@@ -47,7 +46,7 @@ n3.fit(x_train, y_train)
 pred_n3 = n3.predict(x_test)
 print(classification_report(y_test, pred_n3))
 cross_val = cross_val_score(estimator = n3, X = x_train, y = y_train, cv = 10)
-print(cross_val.mean())
+print("KNN3 Accuracy = " + str(cross_val.mean() * 100) + "%")
 
 # knn classifier with 5 neighbors
 n5 = KNeighborsClassifier(n_neighbors = 5)
@@ -55,4 +54,28 @@ n5.fit(x_train, y_train)
 pred_n5 = n5.predict(x_test)
 print(classification_report(y_test, pred_n5))
 cross_val = cross_val_score(estimator = n5, X = x_train, y = y_train, cv = 10)
-print(cross_val.mean())
+print("KNN5 Accuracy = " + str(cross_val.mean() * 100) + "%")
+
+# random forest classifier
+rf = RandomForestClassifier()
+rf.fit(x_train, y_train)
+pred_rf = rf.predict(x_test)
+print(classification_report(y_test, pred_rf))
+cross_val = cross_val_score(estimator = rf, X = x_train, y = y_train, cv = 10)
+print("Random Forest Accuracy = " + str(cross_val.mean() * 100) + "%")
+
+# decision tree classifier
+dt = DecisionTreeClassifier()
+dt.fit(x_train, y_train)
+pred_dt = dt.predict(x_test)
+print(classification_report(y_test, pred_dt))
+cross_val = cross_val_score(estimator = dt, X = x_train, y = y_train, cv = 10)
+print("Decision Tree Accuracy = " + str(cross_val.mean() * 100) + "%")
+
+# stochastic gradient descent classifier
+sgd = SGDClassifier()
+sgd.fit(x_train, y_train)
+pred_sgd = sgd.predict(x_test)
+print(classification_report(y_test, pred_sgd))
+cross_val = cross_val_score(estimator = sgd, X = x_train, y = y_train, cv = 10)
+print("SGD Accuracy = " + str(cross_val.mean() * 100) + "%")
