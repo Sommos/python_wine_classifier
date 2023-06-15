@@ -1,8 +1,8 @@
 # Python Wine Classifier
 
 <p align="center">
-    <img src="figs/red_wine/redchlorides.png" width="500"/>
-    <img src="figs/white_wine/whitealcohol.png" width="500"/>
+    <img src="figs/white_wine/white_alcohol.png" width="500"/>
+    <img src="figs/red_wine/red_chlorides.png" width="500"/>
     <img src="image_0.png" width="1000"/>
     <img src="image_1.png" width="1000"/>
 </p>

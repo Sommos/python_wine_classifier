@@ -51,40 +51,54 @@ def wine_classifier(dataset_path, classifier_path, fig_path, classifier_type):
     n3.fit(x_train, y_train)
     pred_n3 = n3.predict(x_test)
     print(classification_report(y_test, pred_n3))
-    cross_val = cross_val_score(estimator = n3, X = x_train, y = y_train, cv = 10)
-    print("KNN3 Accuracy = " + str(cross_val.mean() * 100) + "%")
+    n3_cross_val = cross_val_score(estimator = n3, X = x_train, y = y_train, cv = 10)
+    print("KNN3 Accuracy = " + str(n3_cross_val.mean() * 100) + "%")
 
     # knn classifier with 5 neighbors
     n5 = KNeighborsClassifier(n_neighbors = 5)
     n5.fit(x_train, y_train)
     pred_n5 = n5.predict(x_test)
     print(classification_report(y_test, pred_n5))
-    cross_val = cross_val_score(estimator = n5, X = x_train, y = y_train, cv = 10)
-    print("KNN5 Accuracy = " + str(cross_val.mean() * 100) + "%")
+    n5_cross_val = cross_val_score(estimator = n5, X = x_train, y = y_train, cv = 10)
+    print("KNN5 Accuracy = " + str(n5_cross_val.mean() * 100) + "%")
 
     # random forest classifier
     rf = RandomForestClassifier()
     rf.fit(x_train, y_train)
     pred_rf = rf.predict(x_test)
     print(classification_report(y_test, pred_rf))
-    cross_val = cross_val_score(estimator = rf, X = x_train, y = y_train, cv = 10)
-    print("Random Forest Accuracy = " + str(cross_val.mean() * 100) + "%")
+    rf_cross_val = cross_val_score(estimator = rf, X = x_train, y = y_train, cv = 10)
+    print("Random Forest Accuracy = " + str(rf_cross_val.mean() * 100) + "%")
 
     # decision tree classifier
     dt = DecisionTreeClassifier()
     dt.fit(x_train, y_train)
     pred_dt = dt.predict(x_test)
     print(classification_report(y_test, pred_dt))
-    cross_val = cross_val_score(estimator = dt, X = x_train, y = y_train, cv = 10)
-    print("Decision Tree Accuracy = " + str(cross_val.mean() * 100) + "%")
+    dt_cross_val = cross_val_score(estimator = dt, X = x_train, y = y_train, cv = 10)
+    print("Decision Tree Accuracy = " + str(dt_cross_val.mean() * 100) + "%")
 
     # stochastic gradient descent classifier
     sgd = SGDClassifier()
     sgd.fit(x_train, y_train)
     pred_sgd = sgd.predict(x_test)
     print(classification_report(y_test, pred_sgd))
-    cross_val = cross_val_score(estimator = sgd, X = x_train, y = y_train, cv = 10)
-    print("SGD Accuracy = " + str(cross_val.mean() * 100) + "%")
+    sgd_cross_val = cross_val_score(estimator = sgd, X = x_train, y = y_train, cv = 10)
+    print("SGD Accuracy = " + str(sgd_cross_val.mean() * 100) + "%")
+
+    # dictionary of classifiers and their accuracies
+    best_classifier_dict = {
+        "KNN3": n3_cross_val.mean(),
+        "KNN5": n5_cross_val.mean(),
+        "Random Forest": rf_cross_val.mean(),
+        "Decision Tree": dt_cross_val.mean(),
+        "SGD": sgd_cross_val.mean()
+    }
+    # find best classifier and its accuracy
+    best_classifier = max(best_classifier_dict, key = best_classifier_dict.get)
+    max_accuracy = max(n3_cross_val.mean(), n5_cross_val.mean(), rf_cross_val.mean(), dt_cross_val.mean(), sgd_cross_val.mean())
+    # print out the best classifier, and it's accuracy
+    print("All classifiers have been trained and tested.\nThe best classifier " + best_classifier + " has " + str(max_accuracy * 100) + "% " + "accuracy.")
 
     # check if classifier file exists, and that it is not empty
     if os.path.isfile(classifier_path) and os.path.getsize(classifier_path) > 0:
@@ -127,7 +141,7 @@ def wine_classifier(dataset_path, classifier_path, fig_path, classifier_type):
 
     # random forest classifier with optimised parameters
     rfeval = cross_val_score(estimator = rf_optimised, X = x_train, y = y_train, cv = 10)
-    print(classifier_type.capitalize() + " Optimised Random Forest Accuracy = " + str(rfeval.mean() * 100) + "%")
+    print(classifier_type.capitalize() + " Optimised " + best_classifier + " Accuracy = " + str(rfeval.mean() * 100) + "%")
 
     # save classifier to file
     ofile = bz2.BZ2File(classifier_path, "wb")
