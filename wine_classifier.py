@@ -14,18 +14,18 @@ from sklearn.metrics import classification_report
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import RandomizedSearchCV, cross_val_score
 
-def wine_classifier(dataset_path, classifier_path, classifier_type, fig_path):
+def wine_classifier(dataset_path, classifier_path, fig_path, classifier_type):
     # read in csv data
     df = pd.read_csv(dataset_path, delimiter = ";")
 
     # targets all columns except for the last one (quality)
     for label in df.columns[:-1]:
         plt.boxplot([df[df["quality"] == i][label] for i in range(0, 11)])
-        plt.title(label.capitalize())
+        plt.title(classifier_type.capitalize() + " " + label.title())
         plt.xlabel("Quality")
         plt.ylabel(label.capitalize())
         # save image of figure to imgs folder
-        plt.savefig(os.path.join(fig_path, classifier_type + "_".join(label.split(" "))) + ".png")
+        plt.savefig(os.path.join(fig_path, classifier_type + "_" + "_".join(label.split(" "))) + ".png")
          
     plt.close()
 
@@ -127,7 +127,7 @@ def wine_classifier(dataset_path, classifier_path, classifier_type, fig_path):
 
     # random forest classifier with optimised parameters
     rfeval = cross_val_score(estimator = rf_optimised, X = x_train, y = y_train, cv = 10)
-    print("Optimised Random Forest Accuracy = " + str(rfeval.mean() * 100) + "%")
+    print(classifier_type.capitalize() + " Optimised Random Forest Accuracy = " + str(rfeval.mean() * 100) + "%")
 
     # save classifier to file
     ofile = bz2.BZ2File(classifier_path, "wb")
