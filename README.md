@@ -1,10 +1,10 @@
 # Python Wine Classifier
 
 <p align="center">
-    <img src="figs/white_wine/white_alcohol.png" width="450"/>
-    <img src="figs/red_wine/red_chlorides.png" width="450"/>
-    <img src="image_0.png" width="1000"/>
-    <img src="image_1.png" width="1000"/>
+    <img src="figs/white_wine/white_alcohol.png" width="400"/>
+    <img src="figs/red_wine/red_chlorides.png" width="400"/>
+    <img src="image_0.png" width="1030"/>
+    <img src="image_1.png" width="1030"/>
 </p>
 
 This program is to test sklearn, with simple machine learning algorithms, saving classifiers and a basic dataset of wine attributes. 
