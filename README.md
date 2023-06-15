@@ -1,8 +1,9 @@
 # Python Wine Classifier
 
 <p align="center">
-    <img src="figs/chlorides.png" width="500"/>
-    <img src="figs/volatilewhiteacidity.png" width="500"/>
+    <img src="figs/chlorides.png" width="250"/>
+    <img src="figs/volatilewhiteacidity.png" width="250"/>
+    <img src="image_0.png" width="750"/>
 </p>
 
 This program is to test Pandas, with simple machine learning of wine quality.
