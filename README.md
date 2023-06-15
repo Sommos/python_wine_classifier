@@ -1,15 +1,16 @@
 # Python Wine Classifier
 
 <p align="center">
-    <img src="figs/white_wine/white_alcohol.png" width="500"/>
-    <img src="figs/red_wine/red_chlorides.png" width="500"/>
+    <img src="figs/white_wine/white_alcohol.png" width="450"/>
+    <img src="figs/red_wine/red_chlorides.png" width="450"/>
     <img src="image_0.png" width="1000"/>
     <img src="image_1.png" width="1000"/>
 </p>
 
-This program is to test sklearn, with simple machine learning algorithms and a dataset of wine attributes. 
+This program is to test sklearn, with simple machine learning algorithms, saving classifiers and a basic dataset of wine attributes. 
 
 80.8828% white wine accuracy with hyperparameter tuning for random forest classifier.
+
 87.8828% red wine accuracy with hyperparameter tuning for random forest classifier.
 
 # Dataset
