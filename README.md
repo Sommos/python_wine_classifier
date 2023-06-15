@@ -1,12 +1,13 @@
 # Python Wine Classifier
 
 <p align="center">
-    <img src="figs/chlorides.png" width="250"/>
-    <img src="figs/volatilewhiteacidity.png" width="250"/>
+    <img src="figs/chlorides.png" width="325"/>
+    <img src="figs/volatilewhiteacidity.png" width="325"/>
     <img src="image_0.png" width="750"/>
 </p>
 
-This program is to test Pandas, with simple machine learning of wine quality.
+This program is to test sklearn, with simple machine learning algorithms and a dataset of wine attributes. 
+80.8828% accuracy with hyperparameter tuning for random forest classifier.
 
 # Dataset
 
