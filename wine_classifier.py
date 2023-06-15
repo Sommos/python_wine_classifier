@@ -132,6 +132,11 @@ def wine_classifier(dataset_path, classifier_path, fig_path, classifier_type):
         # random search of parameters, using 3 fold cross validation, search across 100 different combinations, and use all available cores
         rf_optimised = RandomizedSearchCV(estimator = rf, param_distributions = random_grid, n_iter = 100, cv = 3, verbose = 2, random_state = 42, n_jobs = -1)
 
+    # save classifier to file
+    ofile = bz2.BZ2File(classifier_path, "wb")
+    pickle.dump(rf_optimised, ofile)
+    ofile.close()
+
     # fit the random search model
     rf_optimised.fit(x_train, y_train)
     # print best parameters
@@ -142,10 +147,15 @@ def wine_classifier(dataset_path, classifier_path, fig_path, classifier_type):
     # random forest classifier with optimised parameters
     rfeval = cross_val_score(estimator = rf_optimised, X = x_train, y = y_train, cv = 10)
     print(classifier_type.capitalize() + " Optimised " + best_classifier + " Accuracy = " + str(rfeval.mean() * 100) + "%")
+    
+    # add prediction and accuracy columns to dataframe
+    df["prediction"] = pred_optimised
+    df["return"] = np.log(df.Close.shift(-1) / df.Close) * 100
+    df["accuracy"] = df.Return * df.prediction
 
-    # save classifier to file
-    ofile = bz2.BZ2File(classifier_path, "wb")
-    pickle.dump(rf_optimised, ofile)
-    ofile.close()
+    # plot cumulative returns
+    df.strategy.iloc[split:].cumsum().plot(figsize = (10, 5))
+    plt.ylabel("Accuracy (%)")
+    plt.show()
 
     return rf_optimised
